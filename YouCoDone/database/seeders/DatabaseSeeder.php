@@ -20,13 +20,14 @@ class DatabaseSeeder extends Seeder
 
         User::factory(10)->create();
 
-        Restaurant::factory(5)->has(Menu::factory(2)->hasAttached(MenuItem::factory())) -> create();
+        Restaurant::factory(5)->has(Menu::factory(2)->hasAttached(MenuItem::factory(10))) -> create();
 
         Favorite::factory(10)->create();
 
-        Reservation::factory()->count(10)->create();
-        Payment::factory()->count(10)->create();
-        Notification::factory()->count(10)->create();
-        Availability::factory()->count(10)->create();
+        Reservation::factory(5)->create();
+        Payment::factory(5)->create();
+        Notification::factory(5)->create();
+        Availability::factory(50)->create();
+        
     }
 }

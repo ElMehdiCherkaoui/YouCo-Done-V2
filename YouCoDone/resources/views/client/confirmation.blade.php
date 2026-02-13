@@ -72,7 +72,7 @@
             <div class="bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl shadow-lg p-8 text-white text-center mb-8 animate-slide-in"
                 style="animation-delay: 0.1s;">
                 <p class="text-white/90 text-sm font-semibold mb-2">CONFIRMATION NUMBER</p>
-                <p class="text-4xl font-bold tracking-wider">{{ $reservation->confirmation_code ?? 'BMT-2024-12345' }}</p>
+                <p class="text-4xl font-bold tracking-wider">{{ $reservation->payment_status ?? 'BMT-2024-12345' }}</p>
                 <p class="text-white/90 text-sm mt-4">Please save this number for your records</p>
             </div>
 
@@ -96,8 +96,8 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 font-semibold">Restaurant</p>
-                                <p class="text-lg font-bold text-gray-900">{{ $restaurant->name ?? 'La Belle Époque' }}</p>
-                                <p class="text-sm text-gray-600 mt-1">{{ $restaurant->cuisine_type ?? 'French Cuisine' }}
+                                <p class="text-lg font-bold text-gray-900">{{ $restaurant->name }}</p>
+                                <p class="text-sm text-gray-600 mt-1">{{ $restaurant->cuisine_type }}
                                 </p>
                             </div>
                         </div>
@@ -114,8 +114,8 @@
                             <div>
                                 <p class="text-sm text-gray-600 font-semibold">Date & Time</p>
                                 <p class="text-lg font-bold text-gray-900">
-                                    {{ $reservation->date ?? 'Friday, Dec 15, 2024' }}</p>
-                                <p class="text-sm text-gray-600 mt-1">{{ $reservation->time ?? '19:30' }}</p>
+                                    {{ $reservation->reservation_date }}</p>
+                                <p class="text-sm text-gray-600 mt-1">{{ $reservation->time_solt }}</p>
                             </div>
                         </div>
 
@@ -129,7 +129,7 @@
                             </div>
                             <div>
                                 <p class="text-sm text-gray-600 font-semibold">Party Size</p>
-                                <p class="text-lg font-bold text-gray-900">{{ $reservation->party_size ?? '4' }} People</p>
+                                <p class="text-lg font-bold text-gray-900">{{ $reservation->number_of_people }} People</p>
                                 <p class="text-sm text-gray-600 mt-1">Standard seating</p>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                             <div class="flex-1">
                                 <p class="text-sm text-gray-600 font-semibold mb-1">Location</p>
                                 <p class="text-gray-900 font-medium">
-                                    {{ $restaurant->address ?? '123 Rue de la Paix, 75002 Paris, France' }}</p>
+                                    {{ $restaurant->address }}</p>
                                 <a href="#"
                                     class="inline-flex items-center text-orange-600 hover:text-orange-700 font-semibold text-sm mt-2">
                                     <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -222,8 +222,9 @@
                     <h3 class="text-xl font-bold text-gray-900 mb-6">Download & Share</h3>
 
                     <div class="space-y-4">
-                        <button
+                        <a href="{{ route('reservation.invoice', $reservation->id) }}"
                             class="w-full flex items-center justify-between p-4 border-2 border-gray-200 rounded-lg hover:border-orange-500 hover:bg-orange-50 transition">
+
                             <div class="flex items-center">
                                 <div class="w-10 h-10 bg-red-100 rounded-lg flex items-center justify-center mr-3">
                                     <svg class="w-5 h-5 text-red-600" fill="currentColor" viewBox="0 0 20 20">
@@ -237,11 +238,13 @@
                                     <p class="text-xs text-gray-600">Confirmation receipt</p>
                                 </div>
                             </div>
+
                             <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                             </svg>
-                        </button>
+                        </a>
+
 
                         <button
                             class="w-full flex items-center justify-between p-4 border-2 border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition">
@@ -342,5 +345,7 @@
             </div>
 
         </div>
+
+
     </div>
 @endsection

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('time_solt');
             $table->integer('number_of_people');
             $table->string('status');
+            $table->boolean('payment_status')->default(false);
             $table->foreignId('restaurant_id')->constrained()->cascadeOnDelete();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

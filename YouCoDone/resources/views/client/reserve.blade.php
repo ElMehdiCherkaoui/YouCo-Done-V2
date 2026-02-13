@@ -62,7 +62,7 @@
             <!-- Breadcrumb -->
             <div class="mb-8 animate-slide-in">
                 <div class="flex items-center text-sm text-gray-600">
-                    <a href="{{ route('client.restaurant') }}" class="hover:text-orange-600">Restaurants</a>
+                    <a href="{{ route('client.restaurant', $restaurant) }}" class="hover:text-orange-600">Restaurants</a>
                     <svg class="w-4 h-4 mx-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>

@@ -18,6 +18,7 @@ class ReservationFactory extends Factory
             'time_solt' => $this->faker->time('H:i'),
             'number_of_people' => $this->faker->numberBetween(1, 10),
             'status' => $this->faker->randomElement(['pending', 'confirmed', 'cancelled']),
+            'payment_status' => $this->faker->boolean(80),
             'restaurant_id' => Restaurant::factory(),
             'user_id' => User::factory(),
         ];

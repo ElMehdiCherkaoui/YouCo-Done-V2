@@ -14,6 +14,7 @@ class Reservation extends Model
         'time_solt',
         'number_of_people',
         'status',
+        'payment_status',
         'restaurant_id',
         'user_id',
     ];
@@ -30,5 +31,9 @@ class Reservation extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
+    }
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }

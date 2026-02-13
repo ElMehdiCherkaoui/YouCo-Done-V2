@@ -13,12 +13,12 @@ use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ClientReservationController;
 use App\Http\Controllers\ReserveController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\PaymentSuccessController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\AvailabilityController;
 use App\Http\Controllers\AdminReservationController;
 use App\Http\Controllers\AdminPaymentController;
 use App\Http\Controllers\AdminStatisticsController;
+use App\Http\Controllers\ScheduleController;
 
 Route::get('/', function () {
 	return view('welcome');
@@ -79,15 +79,13 @@ Route::get('/client/restaurants/{restaurant}/reserve',[ReserveController::class,
 
 Route::post('/client/restaurants/store',[ReserveController::class, 'store'])->middleware(['auth'])->name('client.reservation.store');
 
-Route::get('/client/payment', [PaymentController::class, 'index'])->middleware(['auth'])->name('client.payment');
-
-Route::get('/client/payment/success', [PaymentSuccessController::class, 'index'])->middleware(['auth'])->name('client-paymentSuccess');
+Route::get('/client/{restaurant}/{reservation}/payment', [PaymentController::class, 'index'])->middleware(['auth'])->name('client.payment');
 
 Route::get('/restaurateur/reservations', [ReservationController::class, 'index'])->middleware(['auth'])->name('restaurateur.reservations');
 
 Route::get('/restaurateur/notification', [NotificationController::class, 'index'])->middleware(['auth'])->name('restaurateur.notification');
 
-Route::get('/restaurateur/restaurants/{restaurant}/availabilities', [AvailabilityController::class, 'index'])->name('restaurateur.restaurants.availabilities');
+Route::get('restaurateur/restaurants/{restaurant}/availabilities',[AvailabilityController::class, 'index']);
 
 Route::get('/admin/reservation', [AdminReservationController::class, 'index'])->name('admin.reservation');
 
@@ -95,6 +93,14 @@ Route::get('/admin/payments', [AdminPaymentController::class, 'index'])->name('a
 
 Route::get('/admin/statistics', [AdminStatisticsController::class, 'index'])->name('admin.statistics');
 
+Route::get('/payment/success', [PaymentController::class, 'success'])->name('client-paymentSuccess');
+Route::get('/payment/cancel', [PaymentController::class, 'cancel'])->name('client-paymentCancel');
+
+Route::post('restaurateur/restaurants/{restaurant}/availabilities',[AvailabilityController::class, 'store'])->name('availabilities.store');
+
+Route::get('/reservation/{reservation}/invoice', 
+    [PaymentController::class, 'downloadInvoice'])
+    ->name('reservation.invoice');
 
 
 Route::middleware('auth')->group(function () {
