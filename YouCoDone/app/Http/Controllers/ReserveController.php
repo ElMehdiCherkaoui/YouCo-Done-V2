@@ -60,10 +60,12 @@ class ReserveController extends Controller
 
         $validated['user_id'] = auth()->id();
         $validated['status'] = 'pending';
+        $reservation = Reservation::create($validated);
 
-        Reservation::create($validated);
-
-        return redirect()->route('client.payment');
+        return redirect()->route('client.payment', [
+            'restaurant' => $reservation->restaurant_id,
+            'reservation' => $reservation->id,
+        ]);
     }
 
 
