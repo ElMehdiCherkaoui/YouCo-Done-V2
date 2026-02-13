@@ -3,17 +3,28 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Notification;
 use Illuminate\Http\Request;
+use App\Models\Reservation;
 
 class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        return view("restaurateur.restaurant-reservations");
-    }
+public function index()
+{
+    $reservations = Notification::with(['reservation','reservation.restaurant','reservation.restaurant.availabilities', 'user'])
+        ->where('user_id', auth()->id())
+        ->latest()
+        ->get();
+
+
+
+    return view('restaurateur.restaurant-reservations', compact( 'reservations'));
+}
+
+
 
     /**
      * Show the form for creating a new resource.
