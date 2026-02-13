@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Notification;
 
 class NotificationController extends Controller
 {
@@ -12,7 +13,11 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        return view('restaurateur.notifications');
+        $notifications = Notification::where('user_id', auth()->id())
+            ->latest()
+            ->get();
+
+        return view('restaurateur.notifications', compact('notifications'));
     }
 
     /**
